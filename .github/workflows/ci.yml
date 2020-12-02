@@ -1,70 +1,63 @@
-name: CI/CD
-on:
-  push:
-  pull_request:
-    brances:
-      - main
+name: Rails
+on: push
+
 jobs:
-  build:
+  verify:
+    name: Build
     runs-on: ubuntu-latest
 
     services:
-      db:
+      postgres:
         image: postgres:11
-        ports: ["5432:5432"]
         env:
-          POSTGRES_USER: postgres
+          POSTGRES_USER: rails_github_actions
+          POSTGRES_DB: rails_github_actions_test
           POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-      redis:
-        image: redis
-        ports: ["6379:6379"]
-        options: --entrypoint redis-server
+      # if you need redis
+      # redis:
+      #   image: redis
+      #   ports:
+      #   - 6379:6379
+      #   options: --entrypoint redis-server
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
       - name: Set up Ruby
-        # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-        # change this to (see https://github.com/ruby/setup-ruby#versioning):
-        # uses: ruby/setup-ruby@v1
-        uses: ruby/setup-ruby@21351ecc0a7c196081abca5dc55b08f085efe09a
+        uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.6
-      - uses: borales/actions-yarn@v2.0.0
+          ruby-version: 2.6.x
+      - name: Set up Node
+        uses: actions/setup-node@v1
         with:
-          cmd: install
-      - name: Ruby gem cache
-        uses: actions/cache@v1
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-      - name: Install gems
+          node-version: 10.13.0
+      - name: Install dependencies
         run: |
-          bundle config path vendor/bundle
+          sudo apt-get -yqq install libpq-dev build-essential libcurl4-openssl-dev
+          gem install bundler
           bundle install --jobs 4 --retry 3
-      - name: Installing postgres
+          yarn install
+      - name: Setup test database
         env:
-          DATABASE_URL: postgres://postgres:@localhost:5432/test
-          REDIS_URL: redis://localhost:6379/0
           RAILS_ENV: test
-          POSTGRES_USER: postgres
+          PGHOST: localhost
+          POSTGRES_DB: rails_github_actions_test
+          POSTGRES_USER: rails_github_actions
           POSTGRES_PASSWORD: postgres
-        run: sudo apt-get install libpq-dev
-      - name: running db migration
         run: |
-          bundler exec rails db:create RAILS_ENV=test
-          bundler exec rails db:migrate RAILS_ENV=test
-      - name: run tests
-        run: bundle exec rspec .
-      - name: Upload coverage results
-        uses: actions/upload-artifact@master
-        if: always()
-        with:
-          name: coverage-report
-          path: coverage
+          cp config/database.ci.yml config/database.yml
+          rake db:create db:migrate
+      - name: Run tests
+        env:
+          PGHOST: localhost
+          POSTGRES_DB: rails_github_actions_test
+          POSTGRES_USER: rails_github_actions
+          POSTGRES_PASSWORD: postgres
+          PGPORT: ${{ job.services.postgres.ports[5432] }}
+          RAILS_ENV: test
+        run: rspec
