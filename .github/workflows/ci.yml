@@ -12,9 +12,6 @@ jobs:
       db:
         image: postgres:11
         ports: ["5432:5432"]
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -37,9 +34,10 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-      - name: Build bundler
+      - name: Installing postgres
+        run: sudo apt-get install libpq-dev
+      - name: Build postgres
         run: |
-          sudo apt-get -yqq install libpq-dev
           gem install bundler
           bundle install --jobs 4 --retry 3
       - name: running db migration
