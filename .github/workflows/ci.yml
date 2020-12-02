@@ -60,6 +60,12 @@ jobs:
           bundler exec rails db:create RAILS_ENV=test
           bundler exec rails db:migrate RAILS_ENV=test
       - name: run tests
+        env:
+          DATABASE_URL: postgres://postgres:@localhost:5432/continuous_integration_test
+          REDIS_URL: redis://localhost:6379/0
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         run: bundle exec rspec .
       - name: Upload coverage results
         uses: actions/upload-artifact@master
