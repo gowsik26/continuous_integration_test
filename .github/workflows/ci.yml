@@ -37,14 +37,14 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-      - name: Build and run test
-        env:
-          DATABASE_URL: postgres://postgres:@localhost:5432/test
-          REDIS_URL: redis://localhost:6379/0
-          RAILS_ENV: test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+      - name: Build bundler
         run: |
           sudo apt-get -yqq install libpq-dev
           gem install bundler
           bundle install --jobs 4 --retry 3
+      - name: running db migration
+        run: |
+        bundle exec rake db:create
+        bundle exec rake db:migrate
+      - name: run tests
+        run: bundle exec rspec .
