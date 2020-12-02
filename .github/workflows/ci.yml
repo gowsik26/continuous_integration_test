@@ -1,5 +1,10 @@
 name: CI/CD
-on: [push, pull_request]
+on:
+  on:
+    push:
+    pull_request:
+      brances:
+        - main
 jobs:
   build:
     runs-on: ubuntu-latest
