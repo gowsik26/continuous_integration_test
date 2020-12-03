@@ -50,23 +50,9 @@ jobs:
           bundle exec rake db:create
           bundle exec rake db:migrate
           bundle exec rspec .
-      - name: "Create .netrc for Heroku Auth"
-        shell: bash
-        run: |
-          `cat >~/.netrc <<EOF
-          machine api.heroku.com
-              login $EMAIL
-              password $HEROKU_AUTH_TOKEN
-          machine git.heroku.com
-              login $EMAIL
-              password $HEROKU_AUTH_TOKEN
-          EOF`
-        env:
-          EMAIL: gowsik@mallow-tech.com
-          HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_AUTH_TOKEN }}
-      - name: Add remote origin
-        run: |
-          git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
       - name: Deploy to Heroku
-        run: |
-          git push heroku HEAD:main -f
+          env:
+            HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
+            HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+          if: github.ref == 'refs/heads/main' && job.status == 'success'
+          run: git push https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git origin/main:main
