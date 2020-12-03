@@ -64,11 +64,9 @@ jobs:
         env:
           EMAIL: gowsik@mallow-tech.com
           HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_AUTH_TOKEN }}
-      - name: "Add remote"
-        shell: "bash"
+      - name: Add remote origin
         run: |
-          heroku git:remote --app obscure-stream-26305
-      - name: "Push to heroku"
-        shell: "bash"
+          git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+      - name: Deploy to Heroku
         run: |
-          git push heroku main
+          git push heroku HEAD:master -f
