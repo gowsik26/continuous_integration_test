@@ -38,9 +38,9 @@ jobs:
           postgresql version: '11'  # See https://hub.docker.com/_/postgres for available versions
           postgresql db: 'continuous_integration_test'
       - name: Build and run test
-          run: |
-            gem install bundler
-            bundle install --jobs 4 --retry 3
-            bundle exec rake db:create
-            bundle exec rake db:migrate
-            bundle exec rspec .
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          bundle exec rake db:create
+          bundle exec rake db:migrate
+          bundle exec rspec .
