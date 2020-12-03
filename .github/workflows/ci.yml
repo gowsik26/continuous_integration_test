@@ -1,5 +1,8 @@
 name: CI/CD
-on: [push, pull_request]
+on: 
+  push:
+    branches:
+      - staging
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,8 +35,6 @@ jobs:
           cmd: install
       - name: Build and run test
         env:
-          DATABASE_URL: postgres://postgres:@localhost:5432/test
-          REDIS_URL: redis://localhost:6379/0
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
