@@ -33,11 +33,15 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-      - uses: harmon758/postgresql-action@v1
-        with:
-          postgresql version: '11'  # See https://hub.docker.com/_/postgres for available versions
-          postgresql db: 'continuous_integration_test'
+      - name: Install postgres
+        run: sudo apt-get -yqq install libpq-dev
       - name: Build and run test
+        env:
+          DATABASE_URL: postgres://postgres:@localhost:5432/test
+          REDIS_URL: redis://localhost:6379/0
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
