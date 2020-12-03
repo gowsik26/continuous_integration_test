@@ -50,6 +50,8 @@ jobs:
           bundle exec rake db:create
           bundle exec rake db:migrate
           bundle exec rspec .
+      - name: Retry failed test cases
+          bundle exec rspec . --only-failures
   deploy:
     needs: build
     runs-on: ubuntu-latest
