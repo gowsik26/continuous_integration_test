@@ -54,11 +54,13 @@ jobs:
           gem install bundler
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-      - name: Build and run test
-        continue-on-error: true
+      - name: Build DB
         run: |
           bundle exec rake parallel:create
           bundle exec rake parallel:prepare
+      - name: Running tests
+        continue-on-error: true
+        run: |
           bundle exec rspec .
       - name: Retry failed tests
         run: bundle exec rspec --only-failures
