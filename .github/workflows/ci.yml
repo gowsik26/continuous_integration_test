@@ -40,6 +40,7 @@ jobs:
           gem install bundler
           bundle install --jobs 4 --retry 3
       - name: Build and run test
+        continue-on-error: true
         env:
           DATABASE_URL: postgres://postgres:@localhost:5432/test
           REDIS_URL: redis://localhost:6379/0
@@ -50,14 +51,14 @@ jobs:
           bundle exec rake db:create
           bundle exec rake db:migrate
           bundle exec rspec .
-      - name: Retry failed test cases
+      - name: Retry failed tests
         env:
           DATABASE_URL: postgres://postgres:@localhost:5432/test
           REDIS_URL: redis://localhost:6379/0
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-        run: bundle exec rspec . --only-failures
+        run: bundle exec rspec --only-failures
   deploy:
     needs: build
     runs-on: ubuntu-latest
