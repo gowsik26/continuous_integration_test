@@ -1,5 +1,10 @@
-example_id                              | status  | run_time     |
---------------------------------------- | ------- | ------------ |
-./spec/features/posts/post_spec.rb[1:1] | passed  | 2.6 seconds  |
-./spec/features/posts/post_spec.rb[1:2] | failed  | 4.75 seconds |
-./spec/features/posts/post_spec.rb[1:3] | unknown |              |
+example_id                              | status | run_time        |
+--------------------------------------- | ------ | --------------- |
+./spec/features/posts/post_spec.rb[1:1] | passed | 2.7 seconds     |
+./spec/features/posts/post_spec.rb[1:2] | passed | 0.61587 seconds |
+./spec/features/posts/post_spec.rb[1:3] | passed | 0.35748 seconds |
+./spec/features/posts/post_spec.rb[1:4] | passed | 0.35576 seconds |
+./spec/features/posts/post_spec.rb[1:5] | passed | 0.41064 seconds |
+./spec/features/posts/post_spec.rb[1:6] | passed | 0.29263 seconds |
+./spec/features/posts/post_spec.rb[1:7] | passed | 0.27096 seconds |
+./spec/features/posts/post_spec.rb[1:8] | passed | 0.33305 seconds |

@@ -35,6 +35,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'selenium-webdriver', '~> 3.141'
   gem 'capybara', '~> 3.5', '>= 3.5.1'
+  gem 'parallel_tests'
 end
 
 group :development do

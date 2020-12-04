@@ -63,4 +63,8 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   Capybara.javascript_driver = :selenium_chrome_headless
 
+  Capybara.configure do |config|
+    config.server_port = 9887 + ENV['TEST_ENV_NUMBER'].to_i
+  end
+
 end

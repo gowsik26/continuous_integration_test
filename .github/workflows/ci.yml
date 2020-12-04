@@ -54,8 +54,8 @@ jobs:
       - name: Build and run test
         continue-on-error: true
         run: |
-          bundle exec rake db:create
-          bundle exec rake db:migrate
+          bundle exec rake parallel:create
+          bundle exec rake parallel:prepare
           bundle exec rspec .
       - name: Retry failed tests
         run: bundle exec rspec --only-failures
