@@ -14,7 +14,7 @@ RSpec.feature "post", js: true do
     visit "/posts/new"
 
     fill_in "Title", :with => "My Widget"
-    click_button "Create Posts"
+    click_button "Create Post"
 
     expect(page).to have_text("Post was successfully created.")
   end
