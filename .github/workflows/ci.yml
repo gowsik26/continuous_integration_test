@@ -47,6 +47,9 @@ jobs:
       - name: Install postgres
         run: sudo apt-get -yqq install libpq-dev
       - name: Install gems
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         run: |
           gem install bundler
           bundle config path vendor/bundle
