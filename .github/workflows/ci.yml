@@ -56,9 +56,7 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Build DB
         continue-on-error: true
-        run: |
-          bundle exec rake parallel:create RAILS_ENV=test
-          bundle exec rake parallel:prepare RAILS_ENV=test
+        run: bundle exec rake parallel:setup
       - name: Running tests
         continue-on-error: true
         run: |
