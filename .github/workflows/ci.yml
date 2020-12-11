@@ -55,18 +55,18 @@ jobs:
           gem install bundler
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-      - name: Build DB
-        run: bundle exec rake "parallel:setup[4]" || bundle exec rake "parallel:setup[4]"
-      - name: Running tests
-        continue-on-error: true
-        run: bundle exec rake "parallel:spec[4]"
-      - name: Retry failed tests
-        id: rerun_test
-        run: bundle exec rake "parallel:spec[4]" SPEC_OPTS='--only-failures'
+#      - name: Build DB
+#        run: bundle exec rake "parallel:setup[4]" || bundle exec rake "parallel:setup[4]"
+#      - name: Running tests
+#        continue-on-error: true
+#        run: bundle exec rake "parallel:spec[4]"
+#      - name: Retry failed tests
+#        id: rerun_test
+#        run: bundle exec rake "parallel:spec[4]" SPEC_OPTS='--only-failures'
       - name: Webhook
         uses: joelwmale/webhook-action@master
         with:
-          url: ${{ secrets.SLACK_WEBHOOK }}
+          url: ${{secrets.ZAPIER_WEBHOOK}}
           headers: '{"repository": "gowsik26/continuous_integration_test"}'
           body: '{"event": "tests completed", "branch": "staging" }'
   deploy:
