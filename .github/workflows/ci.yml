@@ -59,10 +59,9 @@ jobs:
         run: bundle exec rake parallel:setup
       - name: Running tests
         continue-on-error: true
-        run: |
-          bundle exec rspec .
+        run: bundle exec rake parallel:spec
       - name: Retry failed tests
-        run: bundle exec rspec --only-failures
+        run: bundle exec rake parallel:spec SPEC_OPTS='--only-failures'
   deploy:
     needs: build
     runs-on: ubuntu-latest
