@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup Ruby
-        uses: ruby/setup-ruby@21351ecc0a7c196081abca5dc55b08f085efe09a
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6.1
       - uses: borales/actions-yarn@v2.0.0
@@ -60,9 +60,9 @@ jobs:
         run: bundle exec rake parallel:setup
       - name: Running tests
         continue-on-error: true
-        run: bundle exec rake parallel:spec
+        run: bundle exec rake "parallel:spec[4]"
       - name: Retry failed tests
-        run: bundle exec rake parallel:spec SPEC_OPTS='--only-failures'
+        run: bundle exec rake "parallel:spec[4]" SPEC_OPTS='--only-failures'
   deploy:
     needs: build
     runs-on: ubuntu-latest
