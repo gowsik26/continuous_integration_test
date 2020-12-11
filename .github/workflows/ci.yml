@@ -73,7 +73,7 @@ jobs:
           body: '{"event": "tests completed", "branch": "staging", "status": "success" }'
       - name: Failed Webhook
         uses: joelwmale/webhook-action@master
-        if: ${{ always() && steps.gem.outcome == 'failure' }}
+        if: failure()
         with:
           url: ${{secrets.ZAPIER_WEBHOOK}}
           headers: '{"repository": "gowsik26/continuous_integration_test"}'
