@@ -11,6 +11,7 @@ jobs:
       PGHOST: localhost
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      TEST_ENV_NUMBER: 4
 
     services:
       db:
