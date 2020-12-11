@@ -72,12 +72,12 @@ jobs:
           headers: '{"repository": "gowsik26/continuous_integration_test"}'
           body: '{"event": "tests completed", "branch": "staging", "status": "success" }'
       - name: Failed Webhook
-          uses: joelwmale/webhook-action@master
-          if: steps.gem.outputs.status == 'failure'
-          with:
-            url: ${{secrets.ZAPIER_WEBHOOK}}
-            headers: '{"repository": "gowsik26/continuous_integration_test"}'
-            body: '{"event": "tests failed", "branch": "staging", "status": "failed" }'
+        uses: joelwmale/webhook-action@master
+        if: steps.gem.outputs.status == 'failure'
+        with:
+          url: ${{secrets.ZAPIER_WEBHOOK}}
+          headers: '{"repository": "gowsik26/continuous_integration_test"}'
+          body: '{"event": "tests failed", "branch": "staging", "status": "failed" }'
 #  deploy:
 #    needs: build
 #    runs-on: ubuntu-latest
