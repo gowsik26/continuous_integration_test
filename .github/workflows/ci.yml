@@ -79,7 +79,7 @@ jobs:
         with:
           url: ${{secrets.ZAPIER_WEBHOOK}}
           headers: '{"repository": "gowsik26/continuous_integration_test"}'
-          body: "{'event': 'tests completed', 'branch': 'staging', 'status':" + ${{ env.BRANCH_NAME }} }
+          body: "{'event': 'tests completed', 'branch': 'staging', 'status':" + ${{ env.BRANCH_NAME }} + "}"
       - name: Failed Webhook
         uses: joelwmale/webhook-action@master
         if: failure()
