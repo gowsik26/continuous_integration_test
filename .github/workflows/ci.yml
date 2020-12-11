@@ -68,7 +68,7 @@ jobs:
         with:
           url: ${{ secrets.SLACK_WEBHOOK }}
           headers: '{"repository": "gowsik26/continuous_integration_test"}'
-          body: '{"event": "tests completed", "branch": "staging", "status": %{steps.rerun_test.outcome} }'
+          body: '{"event": "tests completed", "branch": "staging" }'
   deploy:
     needs: build
     runs-on: ubuntu-latest
