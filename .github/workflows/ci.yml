@@ -69,7 +69,7 @@ jobs:
         with:
           url: ${{secrets.ZAPIER_WEBHOOK}}
           headers: '{"repository": "gowsik26/continuous_integration_test"}'
-          body: '{"event": "tests completed", "branch": "staging", "status": "successful" }'
+          body: '{"event": "tests completed", "branch": "staging", "status": {{steps.gem.outputs}} }'
 #  deploy:
 #    needs: build
 #    runs-on: ubuntu-latest
