@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7fda30e0-2621-4a64-aacf-e50c6a1e1dda" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
-    </list>
+    <list default="true" id="7fda30e0-2621-4a64-aacf-e50c6a1e1dda" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -441,7 +439,7 @@
       <workItem from="1607511261843" duration="541000" />
       <workItem from="1607585706218" duration="2001000" />
       <workItem from="1607665903025" duration="6258000" />
-      <workItem from="1607681773266" duration="2025000" />
+      <workItem from="1607681773266" duration="2325000" />
     </task>
     <servers />
   </component>
@@ -478,7 +476,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42394000" />
+    <option name="totallyTimeSpent" value="42694000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
