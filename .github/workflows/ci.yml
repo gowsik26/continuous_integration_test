@@ -73,15 +73,13 @@ jobs:
       - name: Retry failed tests
         id: rerun_test
         run: bundle exec rake "parallel:spec[4]" SPEC_OPTS='--only-failures'
-      - name: echo
-        run: echo "{ {{ env.BRANCH_NAME }} }"
       - name: Success Webhook
         uses: joelwmale/webhook-action@master
         if: success()
         with:
           url: ${{secrets.ZAPIER_WEBHOOK}}
           headers: '{"repository": "gowsik26/continuous_integration_test"}'
-          body: "{'event': 'tests completed', 'branch': 'staging', 'status': {{ env.BRANCH_NAME }} }"
+          body: "{'event': 'tests completed', 'branch': 'staging', 'status':" + ${{ env.BRANCH_NAME }} }
       - name: Failed Webhook
         uses: joelwmale/webhook-action@master
         if: failure()
