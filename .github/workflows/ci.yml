@@ -69,15 +69,11 @@ jobs:
         with:
           url: ${{secrets.ZAPIER_WEBHOOK}}
           headers: '{"repository": "gowsik26/continuous_integration_test"}'
-          body: '{"event": "tests completed", "branch": "staging", "status": %{steps.gem.outputs.status} }'
+          body: '{"event": "tests completed", "branch": "staging", "status": ${{steps.gem.outputs.status}} }'
       - name: echo1
-        run: echo steps.gem.outputs.status
+        run: echo ${{steps.gem.outputs.status}}
       - name: echostatus1
-        run: echo steps.gem.outputs
-      - name: echostatus1
-        run: echo 'steps.gem.outputs'
-      - name: echostatus2
-        run: echo %{steps.gem.outputs}
+        run: echo ${{steps.gem.outputs}}
 #  deploy:
 #    needs: build
 #    runs-on: ubuntu-latest
